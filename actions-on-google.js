@@ -21,17 +21,35 @@
 
 'use strict';
 
-const AssistantApp = require('./assistant-app');
+process.env.DEBUG = 'actions-on-google:*';
+const App = require('actions-on-google').ApiAiApp;
+const functions = require('firebase-functions');
+const admin = require('firebase-admin')
+admin.initializeApp(functions.config().firebase);
 
-module.exports = {
-  AssistantApp: AssistantApp.AssistantApp,
-  State: AssistantApp.State,
-  ActionsSdkApp: require('./actions-sdk-app'),
-  ApiAiApp: require('./api-ai-app'),
-  Transactions: require('./transactions'),
-  Responses: require('./response-builder'),
-  // Backwards compatibility
-  Assistant: AssistantApp.AssistantApp,
-  ActionsSdkAssistant: require('./actions-sdk-app'),
-  ApiAiAssistant: require('./api-ai-app')
-};
+// Actions
+const DECODE = 'decode';
+const ENCODE = 'encode';
+
+exports.helloWorld = functions.https.onRequest((request, response) => {
+    response.send("Hello from Firebase!");
+});
+
+exports.myaction = functions.https.onRequest((request, response) => {
+	const Agent = new App({request, response});
+	let actionMap = new Map();
+	actionMap.set(DECODE, decode);
+	actionMap.set(ENCODE, encode);
+
+	function decode(app) {
+		console.log(app.data);
+		app.tell('That is a 100 Ohm resistor with a 5 percent tolerance');
+	}
+
+	function encode(app) {
+		console.log(app.data);
+		app.tell('The colors of that resistor are red, blue, and white');
+	}
+	Agent.handleRequest(actionMap);
+});
+
