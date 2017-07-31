@@ -125,9 +125,15 @@ exports.api_v1 = functions.https.onRequest((request, response) => {
 		console.log("i:", impedance);
 		impedance = impedance * Math.pow(10, colorToNum(multiplier.toLowerCase()));
 		console.log("i:", impedance);
-		var toleranceP = colorToTolerance(tolerance);
+		var toleranceP = colorToTolerance(tolerance.toLowerCase());
+		var display = impedance;
+		if (impedance > 1000000) {
+			display = impedance / 1000000 + ' Mega';
+		} else if (impedance > 1000) {
+			display = impedance / 1000 + ' Kilo';
+		}
 		// FUTURE: Create a "display_impedance" which uses SI prefixes
-		return {impedance: impedance, tolerance: toleranceP, display_impedance: impedance};
+		return {impedance: impedance, tolerance: toleranceP, display_impedance: display};
 	}
 
 	function colorToNum(color) {
@@ -161,7 +167,7 @@ exports.api_v1 = functions.https.onRequest((request, response) => {
 	function encode(app) {
 		var params = request.body.result.parameters;
 		var number = params.number;
-		var units = params['unit-length'];
+		var units = params['unit-length'].toLowerCase();
 		if (units != undefined && unitsMap[units] != undefined) {
 			number = number * unitsMap[units];
 		}
@@ -170,7 +176,7 @@ exports.api_v1 = functions.https.onRequest((request, response) => {
 		if (units != undefined && unitsMap[units] != undefined) {
 			output += ' ' + units;
 		} 
-		output += ' resistor has the colors ' + obj.color1 + ', ' + obj.color2 + ', ';
+		output += ' Ohm resistor has the colors ' + obj.color1 + ', ' + obj.color2 + ', ';
 		if (obj.color4) {
 			output += obj.color3 + ', and ' + obj.color4;
 		} else {
@@ -185,10 +191,9 @@ exports.api_v1 = functions.https.onRequest((request, response) => {
 		// In a 5-strip resistor, the magnitude is slightly smaller
 		var c4 = undefined;
 		if (resistorType == '5-strip') {
-			magnitude--;
-			c4 = numToColor(magnitude);
+			c4 = numToColor(magnitude - 2); // all magnitudes are shifted down 100
 		} else {
-			var c3 = numToColor(magnitude);
+			var c3 = numToColor(magnitude - 1); // all magnitudes are shifted down 10
 		}
 
 		// Next, obtain the leading digit.
@@ -204,7 +209,7 @@ exports.api_v1 = functions.https.onRequest((request, response) => {
 			var tertiaryDigit = Math.floor(number / Math.pow(10, magnitude - 2)) - leadingDigit * 100 - secondaryDigit * 10;
 			var c3 = numToColor(tertiaryDigit);
 		}
-		return {color1: c1, color2: c2, color3: c3, color4: c4};
+		return {color1: c1, color2: c2, color3: c3, color4: c4, magnitude: magnitude, leadingDigit: leadingDigit, secondaryDigit: secondaryDigit, tertiaryDigit: tertiaryDigit};
 	}
 
 	Agent.handleRequest(actionMap);
