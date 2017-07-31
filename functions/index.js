@@ -172,7 +172,7 @@ exports.api_v1 = functions.https.onRequest((request, response) => {
 			number = number * unitsMap[units];
 		}
 		var obj = resistanceToColors(number, params['resistor-type']);
-		var output = 'A ' + number;
+		var output = 'A ' + params.number;
 		if (units != undefined && unitsMap[units] != undefined) {
 			output += ' ' + units;
 		} 
