@@ -1,6 +1,5 @@
 {
   "projects": {
-    "default": "resister-agent",
-    "production": "newagent-ecf2d"
+    "default": "newagent-ecf2d"
   }
 }
