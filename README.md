@@ -1,40 +1,57 @@
-# Actions On Google Client Library
+# Resistor Agent
 
-This Actions On Google client library makes it easy to create your apps for the Google Assistant.
+This is an app for Actions on Google which provides the user with the ability to query information about resistors.
 
-The client library supports both the Actions SDK webhook and API.ai fulfillment.
+Resistors are one of four passive electrical components which provides standard impedance in a circuit. A resistor can
+have one of many different impedances. Standard components are all the same size, with different patterns of colors that allow
+an engineer to identify the impedance.
+
+<img src='https://raw.githubusercontent.com/fleker/resistor-agent/master/screenshots/resistor-color-chart.jpg' />
+
+The chart, from [DigiKey](https://www.digikey.com/en/resources/conversion-calculators/conversion-calculator-resistor-color-code-4-band), can make it possible to decode the colors. However, it can be a time-intensive process.
+
+Using the Google Assistant, this agent is able to do the same task hands-free. You can identify the impedance based on colors, or identify the colors of a particular impedance.
+
+You can get started right now by invoking a request to the app through the Google Assistant:
+
+"OK Google, ask the resistance about a 3.3 k ohm resistor"
+
+"OK Google, ask the resistance about a red, orange, and black resistor"
+
+## Decode Colors
+<img src='https://raw.githubusercontent.com/fleker/resistor-agent/master/screenshots/decode-2.jpg' />
+
+"what type of resistor is orange, orange, black, brown and brown"
+
+"That is a 3.3 Kilo Ohm resistor with a 1 percent tolerance"
+
+## Encode Colors
+<img src='https://raw.githubusercontent.com/fleker/resistor-agent/master/screenshots/encode-1.jpg' />
+
+"what type of resistor is 3.3 k ohm"
+
+"A 3300 Ohm resistor has the colors orange, orange, and red"
+
+**Note**: You can mention that you want a '5-strip' resistor to get four colors as a response.
+
+## What's included?
+
+This project includes:
+
+* Cloud Functions for Firebase to handle requests
+* [API.ai](http://api.ai) exported agent
 
 ## Setup Instructions
 
-### Actions SDK
- 1. Import the appropriate class:
+* Create a new [API.ai](http://api.ai) project and import the zip
+* Create a new Firebase project
+    * Deploy [the functions](https://firebase.google.com/docs/functions/) located in `/functions/`
+    * Obtain the URL `https://XXX.cloudfunctions.net/api_v1`
+    * Paste this as the webhook in the Fulfillment section of your agent on API.ai
 
-```javascript
-let ActionsSdkApp = require('actions-on-google').ActionsSdkApp;
-```
+## halp pls
 
- 2. Create an instance:
-
-```javascript
-const app = new ActionsSdkApp({request: request, response: response});
-```
-
-### API.ai
- 1. Import the appropriate class:
-
-```javascript
-let ApiAiApp = require('actions-on-google').ApiAiApp;
-```
-
- 2. Create an instance:
-
-```javascript
-const app = new ApiAiApp({request: request, response: response});
-```
-
-## References and How to report bugs
-* Actions on Google documentation: [https://developers.google.com/actions/](https://developers.google.com/actions/).
-* If you find any issues, please open a bug on [GitHub](https://github.com/actions-on-google/actions-on-google-nodejs).
+* If you find any issues, please open a bug on [GitHub](/issues).
 * Questions are answered on [StackOverflow](https://stackoverflow.com/questions/tagged/actions-on-google).
 
 ## How to make contributions?
@@ -42,9 +59,3 @@ Please read and follow the steps in the CONTRIBUTING.md.
 
 ## License
 See LICENSE.md.
-
-## Terms
-Your use of this sample is subject to, and by using or downloading the sample files you agree to comply with, the [Google APIs Terms of Service](https://developers.google.com/terms/).
-
-## Google+
-Actions on Google Developers Community on Google+ [https://g.co/actionsdev](https://g.co/actionsdev).

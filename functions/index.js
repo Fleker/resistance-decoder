@@ -1,5 +1,5 @@
 /**
- * Copyright 2016 Google Inc. All Rights Reserved.
+ * Copyright 2017 Google Inc. All Rights Reserved.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -15,8 +15,7 @@
  */
 
 /**
- * The Actions on Google client library.
- * https://developers.google.com/actions/
+ * The Resistance agent for Google Assistant
  */
 
 'use strict';
@@ -31,7 +30,7 @@ admin.initializeApp(functions.config().firebase);
 const DECODE = 'decode';
 const ENCODE = 'encode';
 
-// Define constants. This is 10^x because of the way they're setup.
+// Define constants. This is their digit value, either alone or 10^x.
 // Source: https://www.digikey.com/-/media/Images/Marketing/Resources/Calculators/resistor-color-chart.jpg?la=en-US&ts=72364a89-2139-476a-8a54-8d78dacd29ff
 const colorMap = [
 	{color: 'black', 	value:	0},
@@ -65,16 +64,9 @@ const toleranceMap = [
 
 const unitsMap = {
 	'kilo': 1000,
-	'k': 	1000,
 	'mega': 1000000,
-	'm':	1000000,
 	'giga': 1000000000,
-	'g':	1000000000
 };
-
-exports.helloWorld = functions.https.onRequest((request, response) => {
-    response.send("Hello from Firebase!");
-});
 
 exports.api_v1 = functions.https.onRequest((request, response) => {
 	const Agent = new App({request, response});
@@ -214,4 +206,3 @@ exports.api_v1 = functions.https.onRequest((request, response) => {
 
 	Agent.handleRequest(actionMap);
 });
-
