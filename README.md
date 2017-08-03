@@ -52,7 +52,6 @@ This project includes:
 ## halp pls
 
 * If you find any issues, please open a bug on [GitHub](/issues).
-* Questions are answered on [StackOverflow](https://stackoverflow.com/questions/tagged/actions-on-google).
 
 ## How to make contributions?
 Please read and follow the steps in the CONTRIBUTING.md.
