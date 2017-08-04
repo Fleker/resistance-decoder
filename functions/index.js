@@ -26,6 +26,9 @@ const functions = require('firebase-functions');
 const admin = require('firebase-admin')
 admin.initializeApp(functions.config().firebase);
 
+const DEBUG_LOGS = false;
+const VERSION_NUMBER = '1.0.0';
+
 // Actions
 const DECODE = 'decode';
 const ENCODE = 'encode';
@@ -73,16 +76,18 @@ exports.api_v1 = functions.https.onRequest((request, response) => {
 	let actionMap = new Map();
 	actionMap.set(DECODE, decode);
 	actionMap.set(ENCODE, encode);
-
+	
+	console.log('Running version', VERSION_NUMBER);
+	
 	function decode(app) {
-		var params = request.body.result.parameters;
-		console.log(params);
-		console.log(colorMap);
-		var c0 = params.Color;
-		var c1 = params.Color1;
-		var c2 = params.Color2;
-		var c3 = (params.Color3 != 'null' && params.Color3.length > 0) ? params.Color3 : undefined;
-		var c4 = (params.Color4 != 'null' && params.Color4.length > 0) ? params.Color4 : undefined;
+		var c0 = app.getArgument('Color');
+		var c1 = app.getArgument('Color1');
+		var c2 = app.getArgument('Color2');
+		var c3 = app.getArgument('Color3');
+		var c4 = app.getArgument('Color4');
+		if (DEBUG_LOGS) {
+			console.log('Received colors', c0, c1, c2, c3, c4);
+		}
 		
 		var obj;
 		if (c3 == undefined) {
@@ -104,20 +109,33 @@ exports.api_v1 = functions.https.onRequest((request, response) => {
 
 	function colorToResistance(color1, color2, color3, multiplier, tolerance) {		
 		var impedance = 0;
-		console.log("i:", impedance);
+		if (DEBUG_LOGS) {
+			console.log("i:", impedance);
+		}
 		impedance += colorToNum(color1.toLowerCase()) * 100;
-		console.log("i:", impedance);
+		if (DEBUG_LOGS) {
+			console.log("i:", impedance);
+		}
 		impedance += colorToNum(color2.toLowerCase()) * 10;
-		console.log("i:", impedance);
+		if (DEBUG_LOGS) {
+			console.log("i:", impedance);
+		}
 		if (color3 != undefined) {
 			impedance += colorToNum(color3.toLowerCase());
 		} else {
 			impedance = impedance / 10; // Shift down b/c 2 params
 		}
-		console.log("i:", impedance);
+		if (DEBUG_LOGS) {
+			console.log("i:", impedance);
+		}
 		impedance = impedance * Math.pow(10, colorToNum(multiplier.toLowerCase()));
-		console.log("i:", impedance);
-		var toleranceP = colorToTolerance(tolerance.toLowerCase());
+		if (DEBUG_LOGS) {
+			console.log("i:", impedance);
+		}
+		var toleranceP = undefined;
+		if (tolerance != undefined) {
+			toleranceP = colorToTolerance(tolerance.toLowerCase());			
+		}
 		var display = impedance;
 		if (impedance > 1000000) {
 			display = impedance / 1000000 + ' Mega';
@@ -157,14 +175,13 @@ exports.api_v1 = functions.https.onRequest((request, response) => {
 	}
 
 	function encode(app) {
-		var params = request.body.result.parameters;
-		var number = params.number;
-		var units = params['unit-length'].toLowerCase();
+		var number = app.getArgument('number');
+		var units = app.getArgument('unit-length').toLowerCase();
 		if (units != undefined && unitsMap[units] != undefined) {
 			number = number * unitsMap[units];
 		}
-		var obj = resistanceToColors(number, params['resistor-type']);
-		var output = 'A ' + params.number;
+		var obj = resistanceToColors(number, app.getArgument('resistor-type'));
+		var output = 'A ' + app.getArgument('number');
 		if (units != undefined && unitsMap[units] != undefined) {
 			output += ' ' + units;
 		} 
