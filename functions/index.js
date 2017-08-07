@@ -71,6 +71,11 @@ const unitsMap = {
 	'giga': 1000000000,
 };
 
+exports.privacy = functions.https.onRequest((request, response) => {
+	response.send("<h1>About Resistor Decoder</h1><p>Resistor Decoder gives users a hands-free way to figure out what resistors they have and what they need. " +
+		"Each request is sent anonymously and queries are not shared with any third-parties.</p>");
+});
+
 exports.api_v1 = functions.https.onRequest((request, response) => {
 	const Agent = new App({request, response});
 	let actionMap = new Map();
