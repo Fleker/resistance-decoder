@@ -181,8 +181,9 @@ exports.api_v1 = functions.https.onRequest((request, response) => {
 
 	function encode(app) {
 		var number = app.getArgument('number');
-		var units = app.getArgument('unit-length').toLowerCase();
+		var units = app.getArgument('unit-length');
 		if (units != undefined && unitsMap[units] != undefined) {
+			units = units.toLowerCase();x
 			number = number * unitsMap[units];
 		}
 		var obj = resistanceToColors(number, app.getArgument('resistor-type'));
