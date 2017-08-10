@@ -153,7 +153,6 @@ exports.api_v1 = functions.https.onRequest((request, response) => {
 
 	function colorToNum(color) {
 		for (var i in colorMap) {
-			console.log("Checking", color, i, colorMap[i].color);
 			if (colorMap[i].color == color) {
 				return colorMap[i].value;
 			}
@@ -183,7 +182,7 @@ exports.api_v1 = functions.https.onRequest((request, response) => {
 		var number = app.getArgument('number');
 		var units = app.getArgument('unit-length');
 		if (units != undefined && unitsMap[units] != undefined) {
-			units = units.toLowerCase();x
+			units = units.toLowerCase();
 			number = number * unitsMap[units];
 		}
 		var obj = resistanceToColors(number, app.getArgument('resistor-type'));
