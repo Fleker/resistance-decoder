@@ -27,7 +27,8 @@ const admin = require('firebase-admin')
 admin.initializeApp(functions.config().firebase);
 
 const DEBUG_LOGS = false;
-const VERSION_NUMBER = '1.0.0';
+const VERSION_NUMBER = '1.1.0';
+const RESISTOR_IMAGE_ENDPOINT = 'https://us-central1-newagent-ecf2d.cloudfunctions.net/resistor_image';
 
 // Actions
 const DECODE = 'decode';
@@ -36,18 +37,18 @@ const ENCODE = 'encode';
 // Define constants. This is their digit value, either alone or 10^x.
 // Source: https://www.digikey.com/-/media/Images/Marketing/Resources/Calculators/resistor-color-chart.jpg?la=en-US&ts=72364a89-2139-476a-8a54-8d78dacd29ff
 const colorMap = [
-	{color: 'black', 	value:	0},
-	{color: 'brown',	value:  1},
-	{color: 'red',		value: 	2},
-	{color: 'orange',	value:  3},
-	{color: 'yellow',	value:  4},
-	{color: 'green',	value:  5},
-	{color: 'blue', 	value: 	6},
-	{color: 'violet',	value:  7},
-	{color: 'grey',		value:	8},
-	{color: 'white',	value:	9},
-	{color: 'gold',		value: -1}, // x0.1  Ohm
-	{color: 'silver',	value: -2}  // x0.01 Ohm
+	{color: 'black', 	value:	0,	hex: '#263238'},
+	{color: 'brown',	value:  1,	hex: '#795548'},
+	{color: 'red',		value: 	2,	hex: '#f44336'},
+	{color: 'orange',	value:  3,	hex: '#FF9800'},
+	{color: 'yellow',	value:  4,	hex: '#FFEB3B'},
+	{color: 'green',	value:  5,	hex: '#4CAF50'},
+	{color: 'blue', 	value: 	6,	hex: '#2196F3'},
+	{color: 'violet',	value:  7,	hex: '#9C27B0'},
+	{color: 'grey',		value:	8,	hex: '#9E9E9E'},
+	{color: 'white',	value:	9,	hex: '#FAFAFA'},
+	{color: 'gold',		value: -1,	hex: '#FFC107'}, // x0.1  Ohm
+	{color: 'silver',	value: -2,	hex: '#607D8B'}  // x0.01 Ohm
 ];
 
 const toleranceMap = [
@@ -90,6 +91,7 @@ exports.api_v1 = functions.https.onRequest((request, response) => {
 		var c2 = app.getArgument('Color2');
 		var c3 = app.getArgument('Color3');
 		var c4 = app.getArgument('Color4');
+		var colorsString = c0 + ',' + c1 + ',' + c2;
 		if (DEBUG_LOGS) {
 			console.log('Received colors', c0, c1, c2, c3, c4);
 		}
@@ -101,15 +103,24 @@ exports.api_v1 = functions.https.onRequest((request, response) => {
 		} else if (c4 == undefined) {
 			// Four colors
 			obj = colorToResistance(c0, c1, undefined, c2, c3);
+			colorsString += ',' + c3;
 		} else {
 			// Five colors
 			obj = colorToResistance(c0, c1, c2, c3, c4);
+			colorsString += ',' + c4;
 		}
+		var verbalResponse = '';
 		if (obj.tolerance == undefined) {
-			app.tell('That is a ' + obj.display_impedance + ' Ohm resistor');		
+			verbalResponse = 'That is a ' + obj.display_impedance + ' Ohm resistor';		
 		} else {
-			app.tell('That is a ' + obj.display_impedance + ' Ohm resistor with a ' + obj.tolerance + ' percent tolerance');
+			verbalResponse = 'That is a ' + obj.display_impedance + ' Ohm resistor with a ' + obj.tolerance + ' percent tolerance';
 		}
+		app.tell(app.buildRichResponse()
+			.addSimpleResponse(verbalResponse)
+			.addBasicCard(app.buildBasicCard(obj.display_impedance + 'Ω')
+				.setImage(RESISTOR_IMAGE_ENDPOINT + '?colors=' + colorsString, obj.display_impedance + 'Ω')
+			)
+		);
 	}
 
 	function colorToResistance(color1, color2, color3, multiplier, tolerance) {		
@@ -191,12 +202,24 @@ exports.api_v1 = functions.https.onRequest((request, response) => {
 			output += ' ' + units;
 		} 
 		output += ' Ohm resistor has the colors ' + obj.color1 + ', ' + obj.color2 + ', ';
+		var colorsString = obj.color1 + ',' + obj.color2 + ',' + obj.color3;
 		if (obj.color4) {
 			output += obj.color3 + ', and ' + obj.color4;
+			colorsString += ',' + obj.color4;
 		} else {
 			output += 'and ' + obj.color3;
 		}
-		app.tell(output);
+
+		var caption = app.getArgument('number') + 'Ω';
+		if (units != undefined && unitsMap[units] != undefined) {
+			caption = app.getArgument('number') + ' ' + units + 'Ω';
+		}
+		app.tell(app.buildRichResponse()
+			.addSimpleResponse(output)
+			.addBasicCard(app.buildBasicCard(caption)
+				.setImage(RESISTOR_IMAGE_ENDPOINT + '?colors=' + colorsString, caption)
+			)
+		);
 	}
 
 	function resistanceToColors(number, resistorType) {
@@ -227,4 +250,80 @@ exports.api_v1 = functions.https.onRequest((request, response) => {
 	}
 
 	Agent.handleRequest(actionMap);
+});
+
+/*
+ * This function allows the server to dynamically generate resistor images to display to the user
+ * params: ?colors={comma-separated list of colors} - Must be between 3 and 5 inclusive.
+ *
+ * Examples: ?colors=red,blue,yellow
+ * 	     ?colors=red,blue,yellow,silver
+ *           ?colors=red,blue,yellow,blue,silver
+ */
+exports.resistor_image = functions.https.onRequest((request, response) => {
+	function colorToHex(color) {
+		for (var i in colorMap) {
+			if (colorMap[i].color == color) {
+				return colorMap[i].hex;
+			}
+		}
+		return undefined;
+	}
+	
+	const colorsString = request.query.colors;
+	if (colorsString == undefined || colorsString.length == 0) {
+		// Invalid parameter
+		response.status(400).send('Bad Request - Requires `colors` GET parameter');
+		return;
+	}
+	const colors = colorsString.toLowerCase().split(','); 
+	if (colors.length < 3 || colors.length > 5) {
+		// Validate number of colors
+		response.status(400).send('Bad Request - `colors` list must have between 3 and 5 colors inclusive');
+		return;
+	}
+	// Generate a canvas
+	const Canvas = require('canvas-prebuilt');
+	const canvas = new Canvas(400, 320);
+	const ctx = canvas.getContext('2d');
+	// Generate the resistor base img
+	ctx.beginPath();
+	ctx.fillStyle = '#A1887F';
+	ctx.rect(30, 40, 340, 120);
+	ctx.fill();
+
+	ctx.beginPath();
+	ctx.strokeStyle = '#333';
+	ctx.lineWidth = 6;
+	ctx.moveTo(33, 159);
+	ctx.lineTo(33, 320);
+	ctx.stroke();
+
+	ctx.beginPath();
+	ctx.strokeStyle = '#333';
+	ctx.lineWidth = 6;
+	ctx.moveTo(367, 159);
+	ctx.lineTo(367, 320);
+	ctx.stroke();
+	// For each color, add a stripe
+	for (var i = 0; i < colors.length; i++) {
+		if (colorToHex(colors[i]) === undefined) {
+			response.status(400).send('Bad Request - Color ' + colorMap[colors[i]] + ' not found');
+			return;
+		}
+		var stripeColor = colorToHex(colors[i]);
+		ctx.beginPath();
+		ctx.fillStyle = stripeColor;
+		if (colors.length - i == 1) {
+			ctx.rect(70 + 60 * i, 40, 40, 120);
+		} else {
+			ctx.rect(50 + 60 * i, 40, 40, 120);
+		}
+		ctx.fill();
+	}
+	// Throw error if a color is undefined
+	// Return color
+	response.set('Cache-Control', 'public, max-age=60, s-maxage=31536000');
+	response.writeHead(200, {'Content-Type': 'image/png'});
+	canvas.pngStream().pipe(response);
 });

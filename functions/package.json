@@ -4,7 +4,8 @@
   "dependencies": {
     "firebase-admin": "~4.2.1",
     "firebase-functions": "^0.5.7",
-    "actions-on-google": "^1.0.0"
+    "actions-on-google": "^1.0.0",
+    "canvas-prebuilt": "1.*"
   },
   "private": true
 }
