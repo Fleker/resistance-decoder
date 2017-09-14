@@ -118,7 +118,7 @@ exports.api_v1 = functions.https.onRequest((request, response) => {
 		app.tell(app.buildRichResponse()
 			.addSimpleResponse(verbalResponse)
 			.addBasicCard(app.buildBasicCard(obj.display_impedance + 'Ω')
-				.setImage(RESISTOR_IMAGE_ENDPOINT + '?colors=' + colorsString, obj.display_impedance + 'Ω')
+				.setImage(RESISTOR_IMAGE_ENDPOINT + '?background=true&colors=' + colorsString, obj.display_impedance + 'Ω')
 			)
 		);
 	}
@@ -217,7 +217,7 @@ exports.api_v1 = functions.https.onRequest((request, response) => {
 		app.tell(app.buildRichResponse()
 			.addSimpleResponse(output)
 			.addBasicCard(app.buildBasicCard(caption)
-				.setImage(RESISTOR_IMAGE_ENDPOINT + '?colors=' + colorsString, caption)
+				.setImage(RESISTOR_IMAGE_ENDPOINT + '?background=true&colors=' + colorsString, caption)
 			)
 		);
 	}
@@ -284,26 +284,33 @@ exports.resistor_image = functions.https.onRequest((request, response) => {
 	}
 	// Generate a canvas
 	const Canvas = require('canvas-prebuilt');
-	const canvas = new Canvas(400, 320);
+	const canvas = new Canvas(800, 396);
 	const ctx = canvas.getContext('2d');
+	// Generate a background if valid
+	if (request.query.background) {
+            ctx.beginPath();
+            ctx.fillStyle = '#efefef';
+            ctx.rect(0, 0, 800, 396);
+            ctx.fill();
+	}
 	// Generate the resistor base img
 	ctx.beginPath();
 	ctx.fillStyle = '#A1887F';
-	ctx.rect(30, 40, 340, 120);
+	ctx.rect(60, 40, 680, 200);
 	ctx.fill();
 
 	ctx.beginPath();
-	ctx.strokeStyle = '#333';
-	ctx.lineWidth = 6;
-	ctx.moveTo(33, 159);
-	ctx.lineTo(33, 320);
+	ctx.strokeStyle = '#555';
+	ctx.lineWidth = 12;
+	ctx.moveTo(66, 239);
+	ctx.lineTo(66, 396);
 	ctx.stroke();
 
 	ctx.beginPath();
-	ctx.strokeStyle = '#333';
-	ctx.lineWidth = 6;
-	ctx.moveTo(367, 159);
-	ctx.lineTo(367, 320);
+	ctx.strokeStyle = '#555';
+	ctx.lineWidth = 12;
+	ctx.moveTo(734, 239);
+	ctx.lineTo(734, 396);
 	ctx.stroke();
 	// For each color, add a stripe
 	for (var i = 0; i < colors.length; i++) {
@@ -315,9 +322,9 @@ exports.resistor_image = functions.https.onRequest((request, response) => {
 		ctx.beginPath();
 		ctx.fillStyle = stripeColor;
 		if (colors.length - i == 1) {
-			ctx.rect(70 + 60 * i, 40, 40, 120);
+			ctx.rect(130 + 120 * i, 40, 80, 200);
 		} else {
-			ctx.rect(50 + 60 * i, 40, 40, 120);
+			ctx.rect(100 + 120 * i, 40, 80, 200);
 		}
 		ctx.fill();
 	}

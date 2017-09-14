@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+<body>
+
+<canvas id="myCanvas" width="800" height="396" style="border:1px solid #d3d3d3;">
+Your browser does not support the HTML5 canvas tag.</canvas>
+
+<script>
+var c = document.getElementById("myCanvas");
+const ctx = c.getContext('2d');
+
+// Generate a background color -- not transparent
+ctx.beginPath();
+ctx.fillStyle = '#efefef';
+ctx.rect(0, 0, 800, 396);
+ctx.fill();
+
+// Generate the resistor base img
+ctx.beginPath();
+ctx.fillStyle = '#A1887F';
+ctx.rect(60, 40, 680, 200);
+ctx.fill();
+
+ctx.beginPath();
+ctx.strokeStyle = '#555';
+ctx.lineWidth = 12;
+ctx.moveTo(66, 239);
+ctx.lineTo(66, 396);
+ctx.stroke();
+
+ctx.beginPath();
+ctx.strokeStyle = '#555';
+ctx.lineWidth = 12;
+ctx.moveTo(734, 239);
+ctx.lineTo(734, 396);
+ctx.stroke();
+
+var max = 3;
+for (var i = 0; i < max; i++) {
+    var stripeColor = "#ff0";
+    ctx.beginPath();
+    ctx.fillStyle = stripeColor;
+    if (max - i == 1) {
+	ctx.rect(130 + 120 * i, 40, 80, 200);
+    } else {
+	ctx.rect(100 + 120 * i, 40, 80, 200);
+    }
+    ctx.fill();
+}
+</script>
+</body>
+</html>
+
