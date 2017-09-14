@@ -19,14 +19,14 @@ You can get started right now by invoking a request to the app through the Googl
 "OK Google, ask the resistance about a red, orange, and black resistor"
 
 ## Decode Colors
-<img src='https://raw.githubusercontent.com/fleker/resistor-agent/master/screenshots/decode-2.jpg' />
+<img src='https://raw.githubusercontent.com/Fleker/resistor-agent/master/screenshots/decode-2.png' />
 
 "what type of resistor is orange, orange, black, brown and brown"
 
 "That is a 3.3 Kilo Ohm resistor with a 1 percent tolerance"
 
 ## Encode Colors
-<img src='https://raw.githubusercontent.com/fleker/resistor-agent/master/screenshots/encode-1.jpg' />
+<img src='https://raw.githubusercontent.com/Fleker/resistor-agent/master/screenshots/encode-1.png' />
 
 "what type of resistor is 3.3 k ohm"
 
