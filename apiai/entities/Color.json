@@ -1,0 +1,93 @@
+{
+  "id": "61529047-1567-4ce0-888b-4121c07b4f64",
+  "name": "Color",
+  "isOverridable": true,
+  "entries": [
+    {
+      "value": "Black",
+      "synonyms": [
+        "Black",
+        "Dark"
+      ]
+    },
+    {
+      "value": "Brown",
+      "synonyms": [
+        "Brown",
+        "Tan",
+        "Sand"
+      ]
+    },
+    {
+      "value": "Red",
+      "synonyms": [
+        "Red",
+        "Tomato"
+      ]
+    },
+    {
+      "value": "Orange",
+      "synonyms": [
+        "Orange"
+      ]
+    },
+    {
+      "value": "Yellow",
+      "synonyms": [
+        "Yellow",
+        "Gold",
+        "Bronze"
+      ]
+    },
+    {
+      "value": "Green",
+      "synonyms": [
+        "Green",
+        "Grassy"
+      ]
+    },
+    {
+      "value": "Blue",
+      "synonyms": [
+        "Blue",
+        "Sad",
+        "Water"
+      ]
+    },
+    {
+      "value": "Violet",
+      "synonyms": [
+        "Violet",
+        "Purple"
+      ]
+    },
+    {
+      "value": "Grey",
+      "synonyms": [
+        "Grey",
+        "Gray"
+      ]
+    },
+    {
+      "value": "White",
+      "synonyms": [
+        "White"
+      ]
+    },
+    {
+      "value": "Gold",
+      "synonyms": [
+        "Gold"
+      ]
+    },
+    {
+      "value": "Silver",
+      "synonyms": [
+        "Silver",
+        "Platinum"
+      ]
+    }
+  ],
+  "isEnum": false,
+  "automatedExpansion": false
+}

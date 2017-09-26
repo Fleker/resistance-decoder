@@ -1,0 +1,49 @@
+{
+  "description": "Tells me about resistors and their distinctive coloring",
+  "language": "en",
+  "googleAssistant": {
+    "googleAssistantCompatible": true,
+    "project": "newagent-ecf2d",
+    "welcomeIntentSignInRequired": false,
+    "startIntents": [
+      {
+        "intentId": "91afac2f-7eeb-4bee-98ba-48282de5241f",
+        "signInRequired": false
+      },
+      {
+        "intentId": "c0fc75b0-894b-43a1-845d-1f1c0f16a5be",
+        "signInRequired": false
+      },
+      {
+        "intentId": "8ae5cf97-2898-41b1-a694-ef4ac31fa0bd",
+        "signInRequired": false
+      }
+    ],
+    "systemIntents": [],
+    "endIntentIds": [
+      "c0fc75b0-894b-43a1-845d-1f1c0f16a5be",
+      "8ae5cf97-2898-41b1-a694-ef4ac31fa0bd"
+    ],
+    "oAuthLinking": {
+      "required": false,
+      "grantType": "AUTH_CODE_GRANT"
+    },
+    "voiceType": "MALE_1",
+    "capabilities": [],
+    "protocolVersion": "V2"
+  },
+  "defaultTimezone": "America/Los_Angeles",
+  "webhook": {
+    "url": "https://us-central1-newagent-ecf2d.cloudfunctions.net/api_v1",
+    "headers": {
+      "": ""
+    },
+    "available": true,
+    "useForDomains": false,
+    "cloudFunctionsEnabled": false,
+    "cloudFunctionsInitialized": false
+  },
+  "isPrivate": true,
+  "customClassifierMode": "use.after",
+  "mlMinConfidence": 0.3
+}

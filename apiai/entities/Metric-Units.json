@@ -1,0 +1,39 @@
+{
+  "id": "8cdda703-ed39-4f09-8931-df03418dee89",
+  "name": "Metric-Units",
+  "isOverridable": true,
+  "entries": [
+    {
+      "value": "kilo",
+      "synonyms": [
+        "kilo",
+        "k",
+        "kohm",
+        "kilohm",
+        "KΩ"
+      ]
+    },
+    {
+      "value": "mega",
+      "synonyms": [
+        "mega",
+        "m",
+        "mohm",
+        "megaohm",
+        "MΩ"
+      ]
+    },
+    {
+      "value": "giga",
+      "synonyms": [
+        "giga",
+        "g",
+        "gohm",
+        "gigaohm",
+        "GΩ"
+      ]
+    }
+  ],
+  "isEnum": false,
+  "automatedExpansion": false
+}

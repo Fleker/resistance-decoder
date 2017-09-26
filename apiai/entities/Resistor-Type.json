@@ -1,0 +1,36 @@
+{
+  "id": "e0bc52c1-9dcb-48c0-b478-f5fd6b810679",
+  "name": "Resistor-Type",
+  "isOverridable": true,
+  "entries": [
+    {
+      "value": "3-strip",
+      "synonyms": [
+        "3-strip",
+        "3-band",
+        "3 color",
+        "3-color"
+      ]
+    },
+    {
+      "value": "4-strip",
+      "synonyms": [
+        "4-strip",
+        "4-band",
+        "4 color",
+        "4-color"
+      ]
+    },
+    {
+      "value": "5-strip",
+      "synonyms": [
+        "5-strip",
+        "5-band",
+        "5 color",
+        "5-color"
+      ]
+    }
+  ],
+  "isEnum": false,
+  "automatedExpansion": false
+}

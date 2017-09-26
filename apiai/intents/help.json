@@ -1,0 +1,61 @@
+{
+  "userSays": [
+    {
+      "id": "03f56ac6-9f60-4c6f-887c-75c4ed3fb7e8",
+      "data": [
+        {
+          "text": "help"
+        }
+      ],
+      "isTemplate": false,
+      "count": 0
+    },
+    {
+      "id": "9a54842a-1867-443c-9f72-092e4a836181",
+      "data": [
+        {
+          "text": "what is your purpose"
+        }
+      ],
+      "isTemplate": false,
+      "count": 0
+    },
+    {
+      "id": "81dd455e-2b8c-4f0a-b21e-2387720af90a",
+      "data": [
+        {
+          "text": "what can you do?"
+        }
+      ],
+      "isTemplate": false,
+      "count": 0
+    }
+  ],
+  "id": "91afac2f-7eeb-4bee-98ba-48282de5241f",
+  "name": "help",
+  "auto": true,
+  "contexts": [],
+  "responses": [
+    {
+      "resetContexts": false,
+      "affectedContexts": [],
+      "parameters": [],
+      "messages": [
+        {
+          "type": 0,
+          "speech": [
+            "I can decode the colors of resistor, or tell you the colors for a specific impedance. What do you want me to do?",
+            "Decode colors or encode impedances. Which do you want?",
+            "Turn colors into a number, or turn a number into colors. What should I do?"
+          ]
+        }
+      ],
+      "defaultResponsePlatforms": {}
+    }
+  ],
+  "priority": 500000,
+  "webhookUsed": false,
+  "webhookForSlotFilling": false,
+  "fallbackIntent": false,
+  "events": []
+}

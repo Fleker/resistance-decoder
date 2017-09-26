@@ -1,0 +1,324 @@
+{
+  "userSays": [
+    {
+      "id": "54f57fae-678c-40be-b02b-532d1635f251",
+      "data": [
+        {
+          "text": "what type of resistor is "
+        },
+        {
+          "text": "orange",
+          "alias": "Color",
+          "meta": "@Color",
+          "userDefined": false
+        },
+        {
+          "text": ", "
+        },
+        {
+          "text": "orange",
+          "alias": "Color1",
+          "meta": "@Color",
+          "userDefined": false
+        },
+        {
+          "text": ", "
+        },
+        {
+          "text": "black",
+          "alias": "Color2",
+          "meta": "@Color",
+          "userDefined": false
+        },
+        {
+          "text": ", "
+        },
+        {
+          "text": "brown",
+          "alias": "Color3",
+          "meta": "@Color",
+          "userDefined": false
+        },
+        {
+          "text": " and "
+        },
+        {
+          "text": "brown",
+          "alias": "Color4",
+          "meta": "@Color",
+          "userDefined": false
+        }
+      ],
+      "isTemplate": false,
+      "count": 0
+    },
+    {
+      "id": "2257ea7b-b408-411e-9c1b-5159aed6fb29",
+      "data": [
+        {
+          "text": "I have a resistor that is "
+        },
+        {
+          "text": "orange",
+          "alias": "Color",
+          "meta": "@Color",
+          "userDefined": false
+        },
+        {
+          "text": ", "
+        },
+        {
+          "text": "orange",
+          "alias": "Color1",
+          "meta": "@Color",
+          "userDefined": false
+        },
+        {
+          "text": ", "
+        },
+        {
+          "text": "black",
+          "alias": "Color2",
+          "meta": "@Color",
+          "userDefined": false
+        },
+        {
+          "text": ", "
+        },
+        {
+          "text": "brown",
+          "alias": "Color3",
+          "meta": "@Color",
+          "userDefined": false
+        },
+        {
+          "text": ", "
+        },
+        {
+          "text": "brown",
+          "alias": "Color4",
+          "meta": "@Color",
+          "userDefined": false
+        }
+      ],
+      "isTemplate": false,
+      "count": 0
+    },
+    {
+      "id": "eb59fd00-041a-4512-9d2b-2680b88b97d1",
+      "data": [
+        {
+          "text": "I have a resistor which is "
+        },
+        {
+          "text": "black",
+          "alias": "Color",
+          "meta": "@Color",
+          "userDefined": false
+        },
+        {
+          "text": ", "
+        },
+        {
+          "text": "brown",
+          "alias": "Color1",
+          "meta": "@Color",
+          "userDefined": false
+        },
+        {
+          "text": ", "
+        },
+        {
+          "text": "orange",
+          "alias": "Color2",
+          "meta": "@Color",
+          "userDefined": false
+        },
+        {
+          "text": ", and "
+        },
+        {
+          "text": "gold",
+          "alias": "Color3",
+          "meta": "@Color",
+          "userDefined": false
+        }
+      ],
+      "isTemplate": false,
+      "count": 0
+    },
+    {
+      "id": "b4015ccb-61fc-4075-841f-16ea8d10aef4",
+      "data": [
+        {
+          "text": "What resistor is "
+        },
+        {
+          "text": "red",
+          "alias": "Color",
+          "meta": "@Color",
+          "userDefined": false
+        },
+        {
+          "text": " "
+        },
+        {
+          "text": "green",
+          "alias": "Color1",
+          "meta": "@Color",
+          "userDefined": false
+        },
+        {
+          "text": " and "
+        },
+        {
+          "text": "blue",
+          "alias": "Color2",
+          "meta": "@Color",
+          "userDefined": false
+        }
+      ],
+      "isTemplate": false,
+      "count": 0
+    },
+    {
+      "id": "1d233c8e-c0a7-493c-8622-4cfe8e9f4766",
+      "data": [
+        {
+          "text": "Decode a "
+        },
+        {
+          "text": "black",
+          "alias": "Color",
+          "meta": "@Color",
+          "userDefined": false
+        },
+        {
+          "text": ", "
+        },
+        {
+          "text": "brown",
+          "alias": "Color1",
+          "meta": "@Color",
+          "userDefined": false
+        },
+        {
+          "text": ", and "
+        },
+        {
+          "text": "red",
+          "alias": "Color2",
+          "meta": "@Color",
+          "userDefined": false
+        },
+        {
+          "text": " resistor"
+        }
+      ],
+      "isTemplate": false,
+      "count": 0
+    }
+  ],
+  "id": "c0fc75b0-894b-43a1-845d-1f1c0f16a5be",
+  "name": "Decode colors",
+  "auto": true,
+  "contexts": [],
+  "responses": [
+    {
+      "resetContexts": false,
+      "action": "decode",
+      "affectedContexts": [],
+      "parameters": [
+        {
+          "required": true,
+          "dataType": "@Color",
+          "name": "Color",
+          "value": "$Color",
+          "prompts": [
+            "What is the first color?"
+          ],
+          "isList": false
+        },
+        {
+          "required": true,
+          "dataType": "@Color",
+          "name": "Color1",
+          "value": "$Color1",
+          "prompts": [
+            "What is the second color?"
+          ],
+          "isList": false
+        },
+        {
+          "required": true,
+          "dataType": "@Color",
+          "name": "Color2",
+          "value": "$Color2",
+          "prompts": [
+            "What is the third color?"
+          ],
+          "isList": false
+        },
+        {
+          "dataType": "@Color",
+          "name": "Color3",
+          "value": "$Color3",
+          "prompts": [],
+          "defaultValue": "",
+          "isList": false
+        },
+        {
+          "dataType": "@Color",
+          "name": "Color4",
+          "value": "$Color4",
+          "prompts": [],
+          "isList": false
+        }
+      ],
+      "messages": [
+        {
+          "type": "suggestion_chips",
+          "platform": "google",
+          "suggestions": [
+            {
+              "title": "black"
+            },
+            {
+              "title": "brown"
+            },
+            {
+              "title": "red"
+            },
+            {
+              "title": "orange"
+            },
+            {
+              "title": "yellow"
+            },
+            {
+              "title": "green"
+            },
+            {
+              "title": "violet"
+            },
+            {
+              "title": "grey"
+            }
+          ]
+        },
+        {
+          "type": 0,
+          "speech": []
+        }
+      ],
+      "defaultResponsePlatforms": {
+        "google": true
+      }
+    }
+  ],
+  "priority": 500000,
+  "webhookUsed": true,
+  "webhookForSlotFilling": false,
+  "fallbackIntent": false,
+  "events": []
+}

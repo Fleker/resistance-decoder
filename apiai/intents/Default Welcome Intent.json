@@ -1,0 +1,61 @@
+{
+  "userSays": [
+    {
+      "id": "aae5f5b0-afbf-4307-835c-a5e532e3d606",
+      "data": [
+        {
+          "text": "hello"
+        }
+      ],
+      "isTemplate": false,
+      "count": 0
+    }
+  ],
+  "id": "ad5a2410-c2ff-4b92-a768-33b325cac904",
+  "name": "Default Welcome Intent",
+  "auto": true,
+  "contexts": [],
+  "responses": [
+    {
+      "resetContexts": false,
+      "action": "input.welcome",
+      "affectedContexts": [],
+      "parameters": [],
+      "messages": [
+        {
+          "type": "suggestion_chips",
+          "platform": "google",
+          "suggestions": [
+            {
+              "title": "Decode resistor"
+            },
+            {
+              "title": "Get colors"
+            }
+          ]
+        },
+        {
+          "type": 0,
+          "speech": [
+            "Hi! How can I help?",
+            "Hello! What can I do for you?",
+            "Good day! What\u0027s on your mind?",
+            "Greetings! What do you want?"
+          ]
+        }
+      ],
+      "defaultResponsePlatforms": {
+        "google": true
+      }
+    }
+  ],
+  "priority": 500000,
+  "webhookUsed": false,
+  "webhookForSlotFilling": false,
+  "fallbackIntent": false,
+  "events": [
+    {
+      "name": "WELCOME"
+    }
+  ]
+}
