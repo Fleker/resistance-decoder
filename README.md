@@ -39,7 +39,7 @@ You can get started right now by invoking a request to the app through the Googl
 This project includes:
 
 * Cloud Functions for Firebase to handle requests
-* [API.ai](http://api.ai) exported agent in the [Releases](/releases) section
+* [Dialogflow](http://dialogflow.com) exported agent in the apiai folder
 
 ## Setup Instructions
 
@@ -47,7 +47,7 @@ This project includes:
 * Create a new Firebase project
     * Deploy [the functions](https://firebase.google.com/docs/functions/) located in `/functions/`
     * Obtain the URL `https://XXX.cloudfunctions.net/api_v1`
-    * Paste this as the webhook in the Fulfillment section of your agent on API.ai
+    * Paste this as the webhook in the Fulfillment section of your agent on Dialogflow
 
 ## halp pls
 
