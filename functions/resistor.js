@@ -242,7 +242,11 @@ class Resistor {
       let stripe = Tolerances[Colors[color]];
       return stripe.value;
     }
-    return undefined;
+    return;
+  }
+
+  get tolerance() {
+    return this.getTolerance(); // Just to see if this works
   }
 
   getStripes () {
