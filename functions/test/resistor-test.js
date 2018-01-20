@@ -118,7 +118,7 @@ describe('Resistor', () => {
     it('#constructor', () => {
       const resistor = new Resistor();
       expect(resistor.debugLogs).to.be.equal(false);
-      expect(resistor.getStripes()).to.be.deep.equal([]);
+      expect(resistor.stripes).to.be.deep.equal([]);
     });
   });
 
@@ -127,7 +127,7 @@ describe('Resistor', () => {
       const resistor = new Resistor();
       resistor.fromColorNames('red', 'blue', 'yellow', undefined, undefined);
       expect(resistor.colors).to.be.deep.equal(['red', 'blue', undefined, 'yellow', undefined]);
-      const stripes = resistor.getStripes();
+      const stripes = resistor.stripes;
       expect(stripes[0].color).to.be.equal(Colors.RED);
       expect(stripes[1].color).to.be.equal(Colors.BLUE);
       expect(stripes[2]).to.be.equal(undefined);
@@ -139,7 +139,7 @@ describe('Resistor', () => {
       const resistor = new Resistor();
       resistor.fromColorNames('red', 'blue', 'yellow', 'orange', undefined);
       expect(resistor.colors).to.be.deep.equal(['red', 'blue', undefined, 'yellow', 'orange']);
-      const stripes = resistor.getStripes();
+      const stripes = resistor.stripes;
       expect(stripes[0].color).to.be.equal(Colors.RED);
       expect(stripes[1].color).to.be.equal(Colors.BLUE);
       expect(stripes[2]).to.be.equal(undefined);
@@ -151,7 +151,7 @@ describe('Resistor', () => {
       const resistor = new Resistor();
       resistor.fromColorNames('red', 'blue', 'yellow', 'orange', 'gold');
       expect(resistor.colors).to.be.deep.equal(['red', 'blue', 'yellow', 'orange', 'gold']);
-      const stripes = resistor.getStripes();
+      const stripes = resistor.stripes;
       expect(stripes[0].color).to.be.equal(Colors.RED);
       expect(stripes[1].color).to.be.equal(Colors.BLUE);
       expect(stripes[2].color).to.be.equal(Colors.YELLOW);
@@ -162,43 +162,43 @@ describe('Resistor', () => {
     it('22K Ohm decoding', () => {
       const resistor = new Resistor();
       resistor.fromColorNames('red', 'red', 'orange', undefined, undefined);
-      expect(resistor.getImpedance()).to.be.equal(22000);
-      expect(resistor.getTolerance()).to.be.equal(undefined);
-      expect(resistor.getImageUrl()).to.be
+      expect(resistor.impedance).to.be.equal(22000);
+      expect(resistor.tolerance).to.be.equal(undefined);
+      expect(resistor.imageUrl).to.be
                   .equal(`${RESISTOR_IMAGE_ENDPOINT}?background=true&colors=RED,RED,ORANGE`);
-      expect(resistor.getDisplayImpedance()).to.be.equal('22 Kilo');
+      expect(resistor.displayImpedance).to.be.equal('22 Kilo');
     });
 
     it('220 Ohm decoding with empty strings', () => {
       const resistor = new Resistor();
       resistor.fromColorNames('red', 'red', 'brown', '', '');
       expect(resistor.colors).to.be.deep.equal(['red', 'red', undefined, 'brown', undefined]);
-      expect(resistor.getImpedance()).to.be.equal(220);
-      expect(resistor.getTolerance()).to.be.equal(undefined);
-      expect(resistor.getImageUrl()).to.be
+      expect(resistor.impedance).to.be.equal(220);
+      expect(resistor.tolerance).to.be.equal(undefined);
+      expect(resistor.imageUrl).to.be
                 .equal(`${RESISTOR_IMAGE_ENDPOINT}?background=true&colors=RED,RED,BROWN`);
-      expect(resistor.getDisplayImpedance()).to.be.equal(220);
+      expect(resistor.displayImpedance).to.be.equal(220);
     });
 
     it('220 Ohm decoding with null strings', () => {
       const resistor = new Resistor();
       resistor.fromColorNames('red', 'red', 'brown', null, null);
       expect(resistor.colors).to.be.deep.equal(['red', 'red', undefined, 'brown', undefined]);
-      expect(resistor.getImpedance()).to.be.equal(220);
-      expect(resistor.getTolerance()).to.be.equal(undefined);
-      expect(resistor.getImageUrl()).to.be
+      expect(resistor.impedance).to.be.equal(220);
+      expect(resistor.tolerance).to.be.equal(undefined);
+      expect(resistor.imageUrl).to.be
                   .equal(`${RESISTOR_IMAGE_ENDPOINT}?background=true&colors=RED,RED,BROWN`);
-      expect(resistor.getDisplayImpedance()).to.be.equal(220);
+      expect(resistor.displayImpedance).to.be.equal(220);
     });
 
     it('22K Ohm 5% decoding', () => {
       const resistor = new Resistor();
       resistor.fromColorNames('red', 'red', 'orange', 'gold', undefined);
-      expect(resistor.getImpedance()).to.be.equal(22000);
-      expect(resistor.getTolerance()).to.be.equal(5);
-      expect(resistor.getImageUrl()).to.be
+      expect(resistor.impedance).to.be.equal(22000);
+      expect(resistor.tolerance).to.be.equal(5);
+      expect(resistor.imageUrl).to.be
                 .equal(`${RESISTOR_IMAGE_ENDPOINT}?background=true&colors=RED,RED,ORANGE,GOLD`);
-      expect(resistor.getDisplayImpedance()).to.be.equal('22 Kilo');
+      expect(resistor.displayImpedance).to.be.equal('22 Kilo');
     });
   });
 
@@ -216,11 +216,11 @@ describe('Resistor', () => {
     it('should provide access to decoding functions', () => {
       const resistor = new Resistor();
       resistor.fromNumericalParameters(220, undefined, undefined);
-      expect(resistor.getImpedance()).to.be.equal(220);
-      expect(resistor.getTolerance()).to.be.equal(undefined);
-      expect(resistor.getImageUrl()).to.be
+      expect(resistor.impedance).to.be.equal(220);
+      expect(resistor.tolerance).to.be.equal(undefined);
+      expect(resistor.imageUrl).to.be
                 .equal(`${RESISTOR_IMAGE_ENDPOINT}?background=true&colors=RED,RED,BROWN`);
-      expect(resistor.getDisplayImpedance()).to.be.equal(220);
+      expect(resistor.displayImpedance).to.be.equal(220);
     });
 
     it('encodes 3-strip 1 Ohm', () => {

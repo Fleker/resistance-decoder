@@ -62,15 +62,15 @@ exports.api_v1 = functions.https.onRequest((request, response) => {
 
     var verbalResponse = '';
     if (resistor.getTolerance() === undefined) {
-      verbalResponse = `That is a ${resistor.getDisplayImpedance()} Ohm resistor`;
+      verbalResponse = `That is a ${resistor.displayImpedance} Ohm resistor`;
     } else {
-      verbalResponse = `That is a ${resistor.getDisplayImpedance()} Ohm resistor with a ` +
+      verbalResponse = `That is a ${resistor.displayImpedance} Ohm resistor with a ` +
                     `${resistor.tolerance} percent tolerance`;
     }
     app.tell(app.buildRichResponse()
                 .addSimpleResponse(verbalResponse)
-                .addBasicCard(app.buildBasicCard(resistor.getDisplayImpedance() + 'Ω')
-                    .setImage(resistor.getImageUrl(), resistor.getDisplayImpedance() + 'Ω')
+                .addBasicCard(app.buildBasicCard(resistor.displayImpedance + 'Ω')
+                    .setImage(resistor.imageUrl, resistor.displayImpedance + 'Ω')
                 )
             );
   }
@@ -84,9 +84,9 @@ exports.api_v1 = functions.https.onRequest((request, response) => {
     resistor.fromNumericalParameters(number, units, type);
 
     app.tell(app.buildRichResponse()
-            .addSimpleResponse(resistor.getDisplayColors())
-            .addBasicCard(app.buildBasicCard(resistor.getDisplayImpedance() + 'Ω')
-                .setImage(resistor.getImageUrl(), resistor.getDisplayImpedance() + 'Ω')
+            .addSimpleResponse(resistor.displayColors)
+            .addBasicCard(app.buildBasicCard(resistor.displayImpedance + 'Ω')
+                .setImage(resistor.imageUrl, resistor.displayImpedance + 'Ω')
             )
         );
   }

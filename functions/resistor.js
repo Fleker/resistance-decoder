@@ -184,7 +184,10 @@ class Resistor {
     this.encodeResistor_(number, units, type);
   }
 
-  getDisplayColors () {
+  /**
+   * @return string
+   */
+  get displayColors () {
     let output = `A ${this.getDisplayImpedance()} Ohm resistor has the colors ` +
             `${this.stripes[0].color.toLowerCase()}, ${this.stripes[1].color.toLowerCase()}`;
     if (this.stripes[2]) {
@@ -195,8 +198,8 @@ class Resistor {
     return output;
   }
 
-  getDisplayImpedance () {
-    let impedance = this.getImpedance();
+  get displayImpedance () {
+    let impedance = this.impedance;
     let output = impedance;
     if (impedance > UnitValues.giga) {
       output = impedance / UnitValues.giga + ' Giga';
@@ -208,7 +211,7 @@ class Resistor {
     return output;
   }
 
-  getImageUrl () {
+  get imageUrl () {
     let colorsString = '';
     for (let i in this.stripes) {
       if (this.stripes[i]) {
@@ -219,7 +222,7 @@ class Resistor {
     return `${RESISTOR_IMAGE_ENDPOINT}?background=true&colors=${colorsString.toUpperCase()}`;
   }
 
-  getImpedance () {
+  get impedance () {
     console.log(this.stripes);
     let impedance = 0;
     impedance += this.stripes[0].value * 100;
@@ -236,22 +239,18 @@ class Resistor {
     return impedance;
   }
 
-  getTolerance () {
+  get tolerance () {
     if (this.colors[4]) {
       let color = this.colors[4].toUpperCase();
       let stripe = Tolerances[Colors[color]];
       return stripe.value;
     }
-    return;
   }
 
-  get tolerance() {
-    return this.getTolerance(); // Just to see if this works
-  }
-
-  getStripes () {
+/*  get stripes () {
     return this.stripes;
   }
+*/
 
   generateStripes () {
     if (this.colors.length === 0) {
