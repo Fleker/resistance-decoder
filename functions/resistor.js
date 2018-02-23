@@ -188,7 +188,7 @@ class Resistor {
    * @return string
    */
   get displayColors () {
-    let output = `A ${this.getDisplayImpedance()} Ohm resistor has the colors ` +
+    let output = `A ${this.displayImpedance} Ohm resistor has the colors ` +
             `${this.stripes[0].color.toLowerCase()}, ${this.stripes[1].color.toLowerCase()}`;
     if (this.stripes[2]) {
       output += `, ${this.stripes[2].color.toLowerCase()}, and ${this.stripes[3].color.toLowerCase()}.`;

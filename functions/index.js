@@ -61,7 +61,7 @@ exports.api_v1 = functions.https.onRequest((request, response) => {
     resistor.fromColorNames(c0, c1, c2, c3, c4);
 
     var verbalResponse = '';
-    if (resistor.getTolerance() === undefined) {
+    if (resistor.tolerance === undefined) {
       verbalResponse = `That is a ${resistor.displayImpedance} Ohm resistor`;
     } else {
       verbalResponse = `That is a ${resistor.displayImpedance} Ohm resistor with a ` +
