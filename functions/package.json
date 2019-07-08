@@ -29,7 +29,7 @@
     "eslint-plugin-promise": "^3.5.0",
     "eslint-plugin-standard": "^3.0.1",
     "jsdoc": "^3.5.5",
-    "jsdoc-baseline": "https://github.com/hegemonic/baseline/tarball/master",
+    "jsdoc-baseline": "https://github.com/hegemonic/baseline/tarball/222e13a",
     "mocha": "^3.0.2",
     "nyc": "^11.0.3",
     "winston": "2.2.0"
